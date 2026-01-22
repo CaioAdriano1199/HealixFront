@@ -6,9 +6,12 @@ import Input from "../components/input/input";
 import Imagembutton from "../components/imagembutton/imagembutton";
 import Textarea from "../components/textarea/textarea";
 import { useState } from "react";
+import Combobox from "../components/combobox/combobox";
+import { tiposangue } from "../components/combobox/comboboxdata";
 
 export default function Cadastro() {
     const [etapa, setEtapa] = useState(1);
+    const [sangue, setSangue] = useState([]);
 
     function segcad() {
         setEtapa(2);
@@ -66,10 +69,12 @@ export default function Cadastro() {
                     )}
                     {etapa === 2 && (
                     <div className=" w-full">
-                        <Input
-                            texto="Tipo sanguíneo"
+                        <Combobox
+                            label="Tipo sanguíneo"
+                            options={tiposangue} value={sangue} onChange={(v) => setSangue(v)}
+                            
                             placeholder="Tipo sanguíneo"
-                            className="mb-4 p-2 border border-[var(--cinza)] rounded"
+                            
                         />
                         <Input
                             texto="Nome do contato de emergência"
