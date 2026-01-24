@@ -58,7 +58,7 @@ export default function Combobox({
                         },
                     },
                     "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#d1d5db", // gray-300
+                        borderColor: "#d1d5db",
                     },
                     "& .MuiInputBase-input": {
                         padding: "px 12px",
