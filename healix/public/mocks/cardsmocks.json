@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "titulo": "Consulta Médica",
+    "descricao": "Agende consultas com especialistas rapidamente",
+    "icone": "bi-heart-pulse"
+  },
+  {
+    "id": 2,
+    "titulo": "Exames",
+    "descricao": "Visualize e acompanhe seus exames",
+    "icone": "bi-clipboard2-pulse"
+  },
+  {
+    "id": 3,
+    "titulo": "Histórico",
+    "descricao": "Acesse seu histórico médico completo",
+    "icone": "bi-clock-history"
+  },
+  {
+    "id": 4,
+    "titulo": "Perfil",
+    "descricao": "Gerencie suas informações pessoais",
+    "icone": "bi-person-circle"
+  }
+]

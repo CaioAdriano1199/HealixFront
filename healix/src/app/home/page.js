@@ -5,8 +5,11 @@ import Forms from "../components/forms/forms";
 import Input from "../components/input/input";
 import { useState, useEffect } from "react";
 
+
 export default function Home() {
   const [isDesktop, setIsDesktop] = useState(false);
+  const [conttela, setConttela] = useState(0);
+  const [lembrecard, setLembrecard] = useState([]);
 
   useEffect(() => {
     const checkScreen = () => setIsDesktop(window.innerWidth >= 1024);
@@ -16,43 +19,50 @@ export default function Home() {
     return () => window.removeEventListener("resize", checkScreen);
   }, []);
 
+  useEffect(() => {
+    fetch("/mocks/cardsmocks.json")
+      .then((res) => res.json())
+      .then((data) => setLembrecard(data))
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
     <div>
       <div>
         <>
-          {isDesktop && (
+          {isDesktop && ( // Navbar para desktop
             <div className="flex w-full fixed top-0 flex-row justify-between bg-[var(--azulescuro)] h-16 items-center pl-8">
-              <h1 className="text-3xl font-bold text-[var(--fundobranco)]">Healix</h1>
+              <h1 className="text-4xl font-bold text-[var(--fundobranco)]">Healix</h1>
               <div className="flex justify-around w-[40%] h-full bg-[var(--azulescuro)]">
-                <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]">
-                  <div className="flex flex-col"> 
+                <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(0)}>
+                  <div className="flex flex-col">
                     <i className="bi bi-house"></i>
                     <a>Home</a>
                   </div>
                 </button>
-                <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]">
-                  <div className="flex flex-col"> 
-                  <i className="bi bi-capsule"></i>
-                  <a>Medicamentos</a>
+                <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(1)}>
+                  <div className="flex flex-col">
+                    <i className="bi bi-capsule"></i>
+                    <a>Medicamentos</a>
                   </div>
                 </button>
-                <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]">
-                  <div className="flex flex-col"> 
+                <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(2)}>
+                  <div className="flex flex-col">
                     <i className="bi bi-person"></i>
                     <a>Perfil</a>
                   </div>
                 </button>
               </div>
             </div>
-          )} {!isDesktop && (
+          )} {!isDesktop && ( // Navbar para mobile e tablet
             <div className="flex justify-around w-full h-12 fixed bottom-0 bg-[var(--azulescuro)]">
-              <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]">
+              <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(0)}>
                 <i className="bi bi-house"></i>
               </button>
-              <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]">
+              <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(1)}>
                 <i className="bi bi-capsule"></i>
               </button>
-              <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]">
+              <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(2)}>
                 <i className="bi bi-person"></i>
               </button>
 
@@ -60,6 +70,28 @@ export default function Home() {
           )}
         </>
       </div>
+      <>
+        {conttela === 0 && ( // Tela Home
+          <div className="flex flex-col items-center justify-center h-screen pt-16 pb-12 bg-[var(--fundobranco)]">
+            <h2 className="text-4xl md:text-5xl lg:text-3xl font-bold mb-10 lg:mb-4  mt-4 text-[var(--azulescuro)]">Healix</h2>
+            <div className="flex flex-col h-full gap-4 p-4 w-full">
+              {lembrecard.map((cards) => (
+                <Forms>
+                  <h2 className="text-lg font-semibold">{cards.titulo}</h2>
+                  <p className="text-sm text-gray-600 mt-2">{cards.descricao}</p>
+                </Forms>
+              ))}
+            </div>
+          </div>)}
+        {conttela === 1 && ( // Tela Medicamentos
+          <div className="flex flex-col items-center justify-center h-screen pt-16 pb-12 bg-[var(--fundobranco)]">
+            <h2 className="text-2xl font-bold mb-4">Medicamentos</h2>
+          </div>)}
+        {conttela === 2 && ( // Tela Perfil
+          <div className="flex flex-col items-center justify-center h-screen pt-16 pb-12 bg-[var(--fundobranco)]">
+            <h2 className="text-2xl font-bold mb-4">Perfil</h2>
+          </div>)}
+      </>
     </div>
   );
 }
