@@ -1,10 +1,15 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import Button from "../components/button/button";
 import Forms from "../components/forms/forms";
 import Input from "../components/input/input";
 import Textarea from "../components/textarea/textarea";
 import { useState, useEffect } from "react";
+import Modal from "../components/modal/modal";
+import Imagembutton from "../components/imagembutton/imagembutton";
+import Combobox from "../components/combobox/combobox";
+import { tiposangue } from "../components/combobox/comboboxdata";
 
 
 export default function Home() {
@@ -12,6 +17,9 @@ export default function Home() {
   const [conttela, setConttela] = useState(0);
   const [lembrecard, setLembrecard] = useState([]);
   const [istemp, setIstemp] = useState(false);
+  const [modalattperfil, setModalattperfil] = useState(false);
+  const [etapa, setEtapa] = useState(1);
+  const [sangue, setSangue] = useState([]);
 
   useEffect(() => {
     const checkScreen = () => setIsDesktop(window.innerWidth >= 1024);
@@ -107,7 +115,83 @@ export default function Home() {
           </div>)}
         {conttela === 2 && ( // Tela Perfil
           <div className="flex flex-col items-center justify-center h-screen pt-16 pb-12 bg-[var(--fundobranco)]">
-            <h2 className="text-2xl font-bold mb-4">Perfil</h2>
+            <Image src="/Perfil.png" alt="Perfil" width={128} height={128} className="mb-4 rounded-full bg-gray-300"></Image>
+            <h2 className="text-2xl font-bold mb-2 text-[var(--azulescuro)]">Nome do Usuário</h2>
+            <a className="text-[var(--azulescuro)] underline cursor-pointer" onClick={() => setModalattperfil(true)}>Editar Perfil</a>
+            <Button className="mt-6 bg-[var(--azulescuro)] text-[var(--fundobranco)] w-full max-w-[200px] p-2 rounded">Logout</Button>
+
+ 
+          <Modal isOpen={modalattperfil} onClose={() => { setModalattperfil(false); setEtapa(1); }} title="Perfil do Usuário">
+ <>
+                                {etapa === 1 && (
+                                    <div className="w-full">
+                                        <Input
+                                            texto="Nome completo"
+                                            placeholder="Nome completo"
+                                            className="mb-4 p-2 border border-[var(--cinza)] rounded"
+                                        />
+                                        <Input
+                                            texto="Email"
+                                            placeholder="email@email.com"
+                                            className="mb-4 p-2 border border-[var(--cinza)] rounded"
+                                        />
+                                        <Input
+                                            texto="Telefone"
+                                            placeholder="(00) 00000-0000"
+                                            className="mb-4 p-2 border border-[var(--cinza)] rounded"
+                                        />
+                                        <Input
+                                            texto="Senha"
+                                            tipo="password"
+                                            placeholder="Inserir senha"
+                                            className="mb-4 p-2 border border-[var(--cinza)] rounded"
+                                        />
+                                        <Input
+                                            texto="Confirmar senha"
+                                            tipo="password"
+                                            placeholder="confirmar senha"
+                                            className="mb-4 p-2 border border-[var(--cinza)] rounded"
+                                        />
+                                        <Imagembutton textolabel="Foto de perfil" className="mb-4" /*onImageChange={(base64) => setfotoUsuario(base64)}*/ />
+
+                                        <Button onClick={() => setEtapa(2)} className="bg-[var(--azulescuro)] text-[var(--fundobranco)] mt-4 w-full p-2 rounded">
+                                            Continuar
+                                        </Button>
+                                    </div>
+                                )}
+                                {etapa === 2 && (
+                                    <div className=" w-full">
+                                        <Combobox
+                                            label="Tipo sanguíneo"
+                                            options={tiposangue} value={sangue} onChange={(v) => setSangue(v)}
+
+                                            placeholder="Tipo sanguíneo"
+
+                                        />
+                                        <Input
+                                            texto="Nome do contato de emergência"
+                                            placeholder="Nome completo"
+                                            className="mb-4 p-2 border border-[var(--cinza)] rounded"
+                                        />
+                                        <Input
+                                            texto="Contato de emergência (telefone)"
+                                            placeholder="(00) 00000-0000"
+                                            className="mb-4 p-2 border border-[var(--cinza)] rounded"
+                                        />
+                                        <Textarea
+                                            texto="Doenças cronicas"
+                                            linhas={4}
+                                            placeholder="Ex: Diabetes, Hipertensão, etc."
+                                            className="mb-4 p-2 border border-[var(--cinza)] rounded"
+                                        />
+
+                                        <Button className="bg-[var(--azulescuro)] text-[var(--fundobranco)] w-full p-2 rounded">
+                                            Cadastrar
+                                        </Button>
+                                    </div>
+                                )}
+                            </>
+          </Modal>
           </div>)}
       </>
     </div>

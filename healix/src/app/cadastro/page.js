@@ -22,10 +22,6 @@ export default function Cadastro() {
         return () => window.removeEventListener("resize", checkScreen);
     }, []);
 
-    function segcad() {
-        setEtapa(2);
-    };
-
     return (
         <div className="flex min-h-screen items-center justify-center bg-[var(--fundobranco)] font-sans">
             <main className="flex flex-col items-center">
@@ -72,7 +68,7 @@ export default function Cadastro() {
                                         />
                                         <Imagembutton textolabel="Foto de perfil" className="mb-4" /*onImageChange={(base64) => setfotoUsuario(base64)}*/ />
 
-                                        <Button onClick={segcad} className="bg-[var(--azulescuro)] text-[var(--fundobranco)] mt-4 w-full p-2 rounded">
+                                        <Button onClick={() => setEtapa(2)} className="bg-[var(--azulescuro)] text-[var(--fundobranco)] mt-4 w-full p-2 rounded">
                                             Continuar
                                         </Button>
                                     </div>

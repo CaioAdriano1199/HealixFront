@@ -88,7 +88,7 @@ const compressImage = (file, maxSize = 800, quality = 0.7) => {
       />
     ) : (
       <Image
-        src="/camera.svg"
+        src="/perfil.png"
         alt="Anexar foto"
         width={40}
         height={40}
