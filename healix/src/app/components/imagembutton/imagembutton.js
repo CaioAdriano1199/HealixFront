@@ -76,7 +76,7 @@ const compressImage = (file, maxSize = 800, quality = 0.7) => {
     type="button"
     onClick={() => fileInputRef.current.click()}
     variant="outline"
-    className="w-full h-32 rounded-[10] flex items-center justify-center overflow-hidden bg-gray-100 hover:bg-gray-200 border border-[var(--cinza)]"
+    className="w-34 h-34 rounded-[10] flex items-center self-start justify-center overflow-hidden bg-gray-100 hover:bg-gray-200 border border-[var(--cinza)]"
   >
     {selectedImage ? (
       <Image
@@ -84,15 +84,15 @@ const compressImage = (file, maxSize = 800, quality = 0.7) => {
         alt="Imagem selecionada"
         width={128}
         height={128}
-        className="object-cover w-full h-full"
+        className="object-contain py-1 w-full h-full"
       />
     ) : (
       <Image
         src="/perfil.png"
         alt="Anexar foto"
-        width={40}
-        height={40}
-        className="object-cover w-full h-full text-[var(--cinza)] flex items-center justify-center"
+        width={128}
+        height={128}
+        className="object-contain py-1 w-full h-full text-[var(--cinza)] flex items-center justify-center"
       />
     )}
   </Button>
