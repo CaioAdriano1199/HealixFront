@@ -20,6 +20,7 @@ export default function Home() {
   const [modalattperfil, setModalattperfil] = useState(false);
   const [etapa, setEtapa] = useState(1);
   const [sangue, setSangue] = useState([]);
+  const [modalcriarremedio, setModalcriarremedio] = useState(false);
 
   useEffect(() => {
     const checkScreen = () => setIsDesktop(window.innerWidth >= 1024);
@@ -42,38 +43,20 @@ export default function Home() {
         <>
           {isDesktop && ( // Navbar para desktop
             <div className="flex w-full fixed top-0 flex-row justify-between bg-[var(--azulescuro)] h-16 items-center pl-8">
-              <h1 className="text-4xl font-bold text-[var(--fundobranco)]">Healix</h1>
-              <div className="flex justify-around w-[40%] h-full bg-[var(--azulescuro)]">
-                <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(0)}>
-                  <div className="flex flex-col">
-                    <i className="bi bi-house"></i>
-                    <a>Home</a>
-                  </div>
-                </button>
-                <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(1)}>
-                  <div className="flex flex-col">
-                    <i className="bi bi-capsule"></i>
-                    <a>Medicamentos</a>
-                  </div>
-                </button>
-                <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(2)}>
-                  <div className="flex flex-col">
-                    <i className="bi bi-person"></i>
-                    <a>Perfil</a>
-                  </div>
-                </button>
-              </div>
+              <a className="cursor-default" onClick={() => setConttela(0)}>
+                <h1 className="text-4xl font-bold text-[var(--fundobranco)]">Healix</h1>
+              </a>
+                <button className="relative flex justify-center items-center bg-[var(--azulescuro)]  rounded-full text-[var(--fundobranco)] h-12 w-12 m-2" onClick={() => setConttela(2)}>
+                  <Image src="/Perfil.png" alt="Perfil" fill className="object-cover rounded-full bg-gray-300"></Image>
+                </button>             
             </div>
           )} {!isDesktop && ( // Navbar para mobile e tablet
-            <div className="flex justify-around w-full h-12 fixed bottom-0 bg-[var(--azulescuro)]">
-              <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(0)}>
-                <i className="bi bi-house"></i>
-              </button>
-              <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(1)}>
-                <i className="bi bi-capsule"></i>
-              </button>
-              <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-[33%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(2)}>
-                <i className="bi bi-person"></i>
+            <div className="flex justify-between w-full h-12 fixed top-0 bg-[var(--azulescuro)]">
+              <a className="flex justify-center items-center text-[var(--fundobranco)] w-[20%] pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(0)}>
+                <p className="text-lg font-bold">Healix</p>
+              </a>
+              <button className="flex justify-center items-center bg-[var(--azulescuro)] text-[var(--fundobranco)] w-12 h-12 rounded-full pb-1 active:bg-[var(--fundobranco)] active:text-[var(--azulescuro)]" onClick={() => setConttela(2)}>
+                <Image src="/Perfil.png" alt="Perfil" width={24} height={24} className="object-contain rounded-full bg-gray-300"></Image>
               </button>
 
             </div>
@@ -83,7 +66,10 @@ export default function Home() {
       <>
         {conttela === 0 && ( // Tela Home
           <div className="flex flex-col items-center justify-center h-screen pt-16 pb-12 bg-[var(--fundobranco)]">
-            <h2 className="text-4xl md:text-5xl lg:text-3xl font-bold mb-10 lg:mb-4  mt-4 text-[var(--azulescuro)]">Healix</h2>
+            <h2 className="text-4xl md:text-5xl lg:text-3xl font-bold mb-10 lg:mb-4  mt-4 text-[var(--azulescuro)]">Home</h2>
+            <Button className="bg-[var(--azulescuro)] self-end text-[var(--fundobranco)] w-full max-w-[60px] p-2 rounded-full m-6" onClick={() => setModalcriarremedio(true)}>
+              + <i className="bi bi-capsule"></i>
+            </Button>
             <div className="flex flex-col h-full gap-4 p-4 w-full">
               {lembrecard.map((cards) => (
                 <Forms key={cards.id}>
@@ -92,6 +78,28 @@ export default function Home() {
                 </Forms>
               ))}
             </div>
+            <Modal isOpen={modalcriarremedio} onClose={() => setModalcriarremedio(false)} className=" max-h-[95vh] w-full overflow-y-auto m-10">
+              <div className="flex flex-col items-center mt-6 w-full p-4">
+                {isDesktop ? (
+                  <h1 className="text-2xl font-bold mb-6 mt-[-20px] text-[var(--azulescuro)]">Adicionar Medicamento</h1>
+                ) : (
+                  <h2 className="text-xl text-center font-bold mb-6 mt-[-20px] text-[var(--azulescuro)]">Adicionar Medicamento</h2>)}
+
+                <Input type="text" texto={"Inserir Medicamento"} placeholder="Ex: Dipirona" className="mb-4 p-2 border border-[var(--cinza)] rounded" />
+                <Textarea texto={"Descrição (opcinal)"} placeholder="Inserir descrição" className="mb-4 p-2 border border-[var(--cinza)] rounded" />
+                <Input texto={"Horario do medicamento"} type="text" placeholder="Frequência" className="mb-4 p-2 border border-[var(--cinza)] rounded" />
+                <div className="flex items-center justify-start w-full ">
+                  <input type="checkbox" onChange={(e) => setIstemp(e.target.checked)} className="mb-4 accent-[var(--azulescuro)]" />
+                  <label className="pl-2 mb-4">Medicamento de uso temporario</label>
+                </div>
+                <>
+                  {istemp === true && (
+                    <Input texto={"Tempo de uso (em dias)"} type="number" placeholder="Ex: 7" className="mb-4 p-2 border border-[var(--cinza)] rounded" />
+                  )}
+                </>
+                <Button type="submit" className="bg-[var(--azulescuro)] text-[var(--fundobranco)] w-full p-2 rounded">Cadastrar</Button>
+              </div>
+            </Modal>
           </div>)}
         {conttela === 1 && ( // Tela Medicamentos
           <div className="flex flex-col items-center justify-center h-screen  lg:pt-16 lg:mt-16 mb-12 pb-12 bg-[var(--fundobranco)]">
@@ -121,8 +129,8 @@ export default function Home() {
             <Button className="mt-6 bg-[var(--azulescuro)] text-[var(--fundobranco)] w-full max-w-[200px] p-2 rounded">Logout</Button>
 
 
-            <Modal isOpen={modalattperfil} onClose={() => { setModalattperfil(false); setEtapa(1); }} title="Perfil do Usuário" 
-            className=" max-h-[95vh] w-full overflow-y-auto m-10">
+            <Modal isOpen={modalattperfil} onClose={() => { setModalattperfil(false); setEtapa(1); }} title="Perfil do Usuário"
+              className=" max-h-[95vh] w-full overflow-y-auto m-10">
               <>
                 <div className="flex flex-col">
                   <>
@@ -164,7 +172,7 @@ export default function Home() {
                     )}
                     {etapa === 2 && (
                       <div className=" w-full">
-                        <a onClick={()=> setEtapa(1)} className="cursor-pointer text-[var(--azulescuro)] underline"><i className="bi bi-arrow-left"></i> voltar</a>
+                        <a onClick={() => setEtapa(1)} className="cursor-pointer text-[var(--azulescuro)] underline"><i className="bi bi-arrow-left"></i> voltar</a>
 
                         <Combobox
                           label="Tipo sanguíneo"
@@ -201,6 +209,7 @@ export default function Home() {
             </Modal>
           </div>)}
       </>
+
     </div>
   );
 }

@@ -75,6 +75,8 @@ export default function Cadastro() {
                                 )}
                                 {etapa === 2 && (
                                     <div className=" w-full">
+                                        <a onClick={() => setEtapa(1)} className="inline-block cursor-pointer text-[var(--azulescuro)] underline pb-2"><i className="bi bi-arrow-left "></i> voltar</a>
+
                                         <Combobox
                                             label="Tipo sanguíneo"
                                             options={tiposangue} value={sangue} onChange={(v) => setSangue(v)}
