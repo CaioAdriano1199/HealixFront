@@ -21,6 +21,16 @@ export default function Home() {
   const [etapa, setEtapa] = useState(1);
   const [sangue, setSangue] = useState([]);
   const [modalcriarremedio, setModalcriarremedio] = useState(false);
+  const [modallembrete, setModallembrete] = useState(false);
+  const [infolembrete, setInfolembrete] = useState(null);
+  const [modaleditcard, setModaleditcard] = useState(false);
+  var userinfo = {
+    nome: "",
+    email: "",
+    telefone: "",
+    tipodesangue: "",
+    doencascronicas: "",
+  };
 
   useEffect(() => {
     const checkScreen = () => setIsDesktop(window.innerWidth >= 1024);
@@ -46,9 +56,9 @@ export default function Home() {
               <a className="cursor-default" onClick={() => setConttela(0)}>
                 <h1 className="text-4xl font-bold text-[var(--fundobranco)]">Healix</h1>
               </a>
-                <button className="relative flex justify-center items-center bg-[var(--azulescuro)]  rounded-full text-[var(--fundobranco)] h-12 w-12 m-2" onClick={() => setConttela(2)}>
-                  <Image src="/Perfil.png" alt="Perfil" fill className="object-cover rounded-full bg-gray-300"></Image>
-                </button>             
+              <button className="relative flex justify-center items-center bg-[var(--azulescuro)]  rounded-full text-[var(--fundobranco)] h-12 w-12 m-2" onClick={() => setConttela(2)}>
+                <Image src="/Perfil.png" alt="Perfil" fill className="object-cover rounded-full bg-gray-300"></Image>
+              </button>
             </div>
           )} {!isDesktop && ( // Navbar para mobile e tablet
             <div className="flex justify-between w-full h-12 fixed top-0 bg-[var(--azulescuro)]">
@@ -70,9 +80,9 @@ export default function Home() {
             <Button className="bg-[var(--azulescuro)] self-end text-[var(--fundobranco)] w-full max-w-[60px] p-2 rounded-full m-6" onClick={() => setModalcriarremedio(true)}>
               + <i className="bi bi-capsule"></i>
             </Button>
-            <div className="flex flex-col h-full gap-4 p-4 w-full">
+            <div className="flex flex-col h-full gap-4 p-4 w-full cursor-default">
               {lembrecard.map((cards) => (
-                <Forms key={cards.id}>
+                <Forms key={cards.id} onClick={() => { setModallembrete(true); setInfolembrete(cards); }}>
                   <h2 className="text-lg font-semibold">{cards.titulo}</h2>
                   <p className="text-sm text-gray-600 mt-2">{cards.descricao}</p>
                 </Forms>
@@ -98,6 +108,29 @@ export default function Home() {
                   )}
                 </>
                 <Button type="submit" className="bg-[var(--azulescuro)] text-[var(--fundobranco)] w-full p-2 rounded">Cadastrar</Button>
+              </div>
+            </Modal >
+            <Modal isOpen={modallembrete} onClose={() => setModallembrete(false)} className=" max-h-[95vh] w-full overflow-y-auto m-10">
+              <div className="flex flex-col items-center mt-6 w-full p-4">
+
+                {modaleditcard ? (
+                                    <>
+                    <h2 className="text-xl font-bold mb-6 mt-[-20px] text-[var(--azulescuro)]">Editar Lembrete</h2>
+                    <Input type="text" texto={"Título"} placeholder="Ex: Tomar remédio" className="mb-4 p-2 border border-[var(--cinza)] rounded" />
+                    <Textarea texto={"Descrição (opcinal)"} placeholder="Inserir descrição" className="mb-4 p-2 border border-[var(--cinza)] rounded" />
+                    <Input texto={"Horario do lembrete"} type="text" placeholder="Frequência" className="mb-4 p-2 border border-[var(--cinza)] rounded" />
+                    <Button type="submit" className="bg-[var(--azulescuro)] text-[var(--fundobranco)] w-full p-2 rounded">Salvar</Button>
+                  </>
+
+                ) : (
+                  <>
+                    <h2 className="text-xl font-bold mb-6 mt-[-20px] text-[var(--azulescuro)]">{infolembrete?.titulo}</h2>
+                    <p className="text-sm text-gray-600 mb-4">{infolembrete?.descricao}</p>
+                    <Button type="button" className="bg-[var(--azulescuro)] mb-2 text-[var(--fundobranco)] w-full p-2 rounded" onClick={() => setModaleditcard(true)}>Editar</Button>
+                    <Button type="button" className="bg-[var(--vermelho)] text-[var(--fundobranco)] w-full p-2 rounded" onClick={() => setModallembrete(false)}>Excluir</Button>
+                  </>
+                )}
+
               </div>
             </Modal>
           </div>)}
