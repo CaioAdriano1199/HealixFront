@@ -3,13 +3,14 @@ import React from "react";
 
 
 export default function Button({
+    tipo = "button",
     children,
     className = "",
     onClick = () => {},
 }) {
 
     return (
-        <button className={`${className}`} onClick={onClick}>
+        <button type={tipo} className={`${className}`} onClick={onClick}>
 
                 {children}
 

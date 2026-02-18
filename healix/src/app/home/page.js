@@ -173,6 +173,7 @@ export default function Home() {
                           texto="Nome completo"
                           placeholder="Nome completo"
                           className="mb-4 p-2 border border-[var(--cinza)] rounded"
+                          onChange={(e) => userinfo.nome = e.target.value}
                         />
                         <Input
                           texto="Email"
