@@ -75,16 +75,21 @@ export default function Home() {
       </div>
       <>
         {conttela === 0 && ( // Tela Home
-          <div className="flex flex-col items-center justify-center h-screen pt-16 pb-12 bg-[var(--fundobranco)]">
+          <div className="flex flex-col items-center pt-20 pb-12 min-h-screen bg-[var(--fundobranco)]">
             <h2 className="text-4xl md:text-5xl lg:text-3xl font-bold mb-10 lg:mb-4  mt-4 text-[var(--azulescuro)]">Home</h2>
             <Button className="bg-[var(--azulescuro)] self-end text-[var(--fundobranco)] w-full max-w-[60px] p-2 rounded-full m-6" onClick={() => setModalcriarremedio(true)}>
               + <i className="bi bi-capsule"></i>
             </Button>
-            <div className="flex flex-col h-full gap-4 p-4 w-full cursor-default">
+            <div className="flex flex-col  gap-4 p-4 w-full cursor-default">
               {lembrecard.map((cards) => (
                 <Forms key={cards.id} onClick={() => { setModallembrete(true); setInfolembrete(cards); }}>
                   <h2 className="text-lg font-semibold">{cards.titulo}</h2>
                   <p className="text-sm text-gray-600 mt-2">{cards.descricao}</p>
+                  <div className="flex items-center justify-start w-full mt-4">
+                    {cards.horario && cards.horario.map((horario, index) => (
+                      <p key={index} className="text-xs text-gray-500 mr-2">{horario}</p>
+                    ))}
+                    </div>
                 </Forms>
               ))}
             </div>
@@ -126,6 +131,11 @@ export default function Home() {
                   <>
                     <h2 className="text-xl font-bold mb-6 mt-[-20px] text-[var(--azulescuro)]">{infolembrete?.titulo}</h2>
                     <p className="text-sm text-gray-600 mb-4">{infolembrete?.descricao}</p>
+                    <div className="flex items-center justify-start w-full mb-4">
+                      {infolembrete?.horario && infolembrete.horario.map((horario, index) => (
+                        <p key={index} className="text-xs text-gray-500 mr-2">{horario}</p>
+                      ))}
+                    </div>
                     <Button type="button" className="bg-[var(--azulescuro)] mb-2 text-[var(--fundobranco)] w-full p-2 rounded" onClick={() => setModaleditcard(true)}>Editar</Button>
                     <Button type="button" className="bg-[var(--vermelho)] text-[var(--fundobranco)] w-full p-2 rounded" onClick={() => setModallembrete(false)}>Excluir</Button>
                   </>

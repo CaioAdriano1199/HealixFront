@@ -3,24 +3,44 @@
     "id": 1,
     "titulo": "Consulta Médica",
     "descricao": "Agende consultas com especialistas rapidamente",
-    "icone": "bi-heart-pulse"
+    "icone": "bi-heart-pulse",
+    "horario":[
+      "14:00",
+      "15:00",
+      "16:00"
+  ]
   },
   {
     "id": 2,
     "titulo": "Exames",
     "descricao": "Visualize e acompanhe seus exames",
-    "icone": "bi-clipboard2-pulse"
+    "icone": "bi-clipboard2-pulse",
+    "horario":[
+      "10:00",
+      "11:00",
+      "12:00"
+  ]
   },
   {
     "id": 3,
     "titulo": "Histórico",
     "descricao": "Acesse seu histórico médico completo",
-    "icone": "bi-clock-history"
+    "icone": "bi-clock-history",
+    "horario":[
+      "09:00",
+      "13:00",
+      "17:00"
+  ]
   },
   {
     "id": 4,
     "titulo": "Perfil",
     "descricao": "Gerencie suas informações pessoais",
-    "icone": "bi-person-circle"
+    "icone": "bi-person-circle",
+    "horario":[
+      "08:00",
+      "12:00",
+      "16:00"
+  ]
   }
 ]
